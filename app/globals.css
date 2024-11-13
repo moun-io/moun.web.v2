@@ -1,33 +1,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --component-width: min(1400px, 100%);
+  --album-width: min(calc(9.5rem + 10vw), 17.5rem);
+  --album-height: clamp(9.5rem, 100%, 15rem);
+}
+li {
+  list-style: none;
+}
+#info-container li {
+  padding: 0rem 0.7rem;
+  width: fit-content;
+}
+.Box {
+  @apply w-[var(--component-width)] m-auto;
+}
+header .active {
+  @apply text-purple-500;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.⚪️ {
+  @apply cursor-pointer lg:w-24 lg:h-10 Center lg:bg-white lg:rounded-[1.25rem] lg:text-neutral-700;
+}
+.H1 {
+  @apply text-3xl font-black ;
+}
+.H2 {
+  @apply text-2xl font-black;
+}
+.lgH1 {
+  @apply lg:text-3xl lg:font-black;
+}
+.Center {
+  @apply flex  items-center justify-center;
+}
+.CenterPosition {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* audio::-webkit-media-controls {
+  background-color: aliceblue;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
+audio::-webkit-media-controls-play-button {
+} */
