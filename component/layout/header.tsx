@@ -106,7 +106,7 @@ function Login() {
     // const { user, authLoading, artist, artistLoading } = useUser();
     let artistLoading = false;
     let authLoading = false;
-    let artist =null;
+    let artist = {photoURL : null};
     let user = true;
     // let artistLoading = true;
 
