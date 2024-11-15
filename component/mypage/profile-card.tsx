@@ -8,8 +8,8 @@ import Verified from "@/component/svg/verified";
 export default function ProfileCard() {
   const {member , memberLoading } = useUser();
 
+
   return (
-    member?.positions && (
       <figure className="m-auto px-4 flex w-[min(28rem,100%)] h-[4.5rem] ">
         <Link href="mypage/profile">
           {memberLoading ? (
@@ -46,7 +46,7 @@ export default function ProfileCard() {
             </div>
           </Link>
           {
-            user?.emailVerified === false && (
+            member?.emailVerified === false && (
               <div className="text-xs text-red-600">
                 이메일 인증이 필요합니다.
               </div>
@@ -54,6 +54,6 @@ export default function ProfileCard() {
           }
         </figcaption>
       </figure>
-    )
+
   );
 }

@@ -9,7 +9,7 @@ import {Member} from "@/lib/class/Member";
 
 const AuthContext = createContext
     < {
-  isAuthenticated:boolean
+  isAuthenticated:boolean,
   authLoading: boolean,
   member: Member | null,
   memberLoading: boolean,
@@ -54,18 +54,23 @@ export default function AuthProvider({
             body: JSON.stringify({username : username, password:password})
           }
       );
-      const loginResponse = await res.json();
-      const {jwtToken, member} = loginResponse;
 
       if (res.ok){
+        const loginResponse = await res.json();
+        const jwtToken = loginResponse.jwtToken.value;
+        const memberResponse = loginResponse.member;
+        console.log(loginResponse);
         localStorage.setItem("jwtToken",jwtToken.value)
         setIsAuthenticated(true);
-        setMember(member);
+        setMember(memberResponse);
         setLoading(false);
-        return jwtToken.value;// 또는 쿠키에 저장
+        return jwtToken.value;
       }
+
     } catch (e){
         alert(e);
+    }finally {
+      setLoading(false);
     }
   }
 
@@ -84,15 +89,10 @@ export default function AuthProvider({
 
 
 
-  //
-  // useEffect(() => {
-  //   const jwtToken = localStorage.getItem('jwtToken'); // 또는 쿠키에서 가져오기
-  //   if (jwtToken) {
-  //     setIsAuthenticated(true);
-  //   }{
-  //
-  //   }
-  // }, []);
+
+  useEffect(() => {
+   console.log(member);
+  }, [member]);
 
 
 

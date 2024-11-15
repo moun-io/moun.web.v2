@@ -12,44 +12,19 @@ export default function LoginForm({ children }: { children: React.ReactNode }) {
   const [errorMsg, setErrorMsg] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [pending, setPending] = useState(false); // [1
-  const { login } = useUser();
+  const { member, login , authLoading} = useUser();
   const router = useRouter();
 
   const onEmailLogin: React.FormEventHandler = async (e) => {
     e.preventDefault();
-    setPending(true);
     localStorage.setItem("email", email); //이메일 저장
-
     const jwtToken = await login(email, password);
     if (jwtToken) {
       router.replace("/");
-      setPending(false);
+    } else {
+        setErrorMsg("아이디와 비밀번호를 다시 확인해주세요.");
+        setPending(false);
     }
-    //   try {
-    //     const res = await fetch(API_URL.AUTH_LOGIN, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({ username, password }),
-    //     });
-    //     const result = await res.json();
-    //     localStorage.setItem("jwtToken", result.jwtToken);
-    //
-    //     console.log(result.jwtToken);
-    //     return result.jwtToken;
-    //   } catch (error) {
-    //     console.log(error);
-    //
-    //     alert("오류가 발생하였습니다.");
-    //   }
-    //
-    // } else {
-    //   setErrorMsg("아이디와 비밀번호를 다시 확인해주세요.");
-    //   setPending(false);
-    // }
-    // setPending(false);
   };
 
   useEffect(() => {
@@ -58,11 +33,11 @@ export default function LoginForm({ children }: { children: React.ReactNode }) {
       setEmail(email);
     }
   }, []);
-  // useEffect(() => {
-  //   if (user) {
-  //     router.replace("/mypage");
-  //   }
-  // }, [user, router]);
+  useEffect(() => {
+    if (member) {
+      router.replace("/mypage");
+    }
+  }, [member, router]);
   return (
     <>
       <form onSubmit={onEmailLogin} className="w-full Center flex-col">
@@ -81,7 +56,7 @@ export default function LoginForm({ children }: { children: React.ReactNode }) {
         <SubmitButton
           text="Login"
           errorMsg={errorMsg}
-          pending={pending}
+          pending={authLoading}
         ></SubmitButton>
       </form>
       {children}

@@ -1,7 +1,7 @@
-import { Position } from "../utils/types";
-import { Positions } from "../utils/const";
-import ArrayFilter from "../utils/array-filter";
-import { isValidUrl } from "@/lib/utils/isValid";
+import { Position } from "../const/types";
+import { Positions } from "../const/const";
+import ArrayFilter from "../const/array-filter";
+import { isValidUrl } from "@/lib/const/isValid";
 
 export class Member {
   public id : number;
@@ -13,6 +13,8 @@ export class Member {
   public profilePicture: File;
   public profilePrictrueUrl: string;
   public uid: string;
+  public verified: boolean;
+  public emailVerified: boolean;
   constructor(formData: FormData) {
     this.displayName = formData.get("name") as string;
     this.positions = ArrayFilter(Positions, formData) as Position[];
@@ -35,7 +37,7 @@ export class Member {
       sns: this.sns,
       description: this.description,
       email: this.email,
-      photoURL: this.photoURL,
+      photoURL: this.profilePrictrueUrl,
       uid: this.uid,
     };
   }

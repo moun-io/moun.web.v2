@@ -10,9 +10,8 @@ import {
 } from "@/component/mypage/form/form";
 import { useFormState } from "react-dom";
 import { useUser } from "@/lib/context/authProvider";
-import { sendEmailVerification } from "firebase/auth";
 import ImageInput from "@/component/mypage/form/image-input";
-import { Positions } from "@/lib/utils/const";
+import { Positions } from "@/lib/const/const";
 
 export default function Profile() {
   const { member } = useUser();
