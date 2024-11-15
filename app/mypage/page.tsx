@@ -1,8 +1,8 @@
 import Link from "next/link";
 // import SmallBanner_myPage from "../../components/smallbanner-mypage";
-import history from "../../../moun_web/moun/public/image/mypage/history.png";
-import myInfo from "../../../moun_web/moun/public/image/mypage/myInfo.png";
-import mySongs from "../../../moun_web/moun/public/image/mypage/mySongs.png";
+import history from "@/public/image/mypage/history.png";
+import myInfo from "@/public/image/mypage/myInfo.png";
+import mySongs from "@/public/image/mypage/mySongs.png";
 import Image from "next/image";
 import Logout from "@/component/mypage/logout";
 import ProfileCard from "@/component/mypage/profile-card";
