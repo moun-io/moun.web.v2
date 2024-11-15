@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/component/layout/footer";
 import Header from "@/component/layout/header";
-// import AuthProvider from "@/lib/context/authProvider";
+import AuthProvider from "@/lib/context/authProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 // import { ArtistProvider } from "@/lib/context/artistsProvider";
@@ -22,14 +22,14 @@ export default async function RootLayout({children, modal}: Readonly<{
       <body>
       {/*<ArtistProvider>*/}
       {/*  {modal}*/}
-      {/*  <AuthProvider>*/}
+        <AuthProvider>
           <Header>
             <main className="flex flex-col mt-[4.5rem]">
               {children}
             </main>
           </Header>
           <Footer />
-      {/*  </AuthProvider>*/}
+        </AuthProvider>
       {/*</ArtistProvider>*/}
       </body>
       </html>

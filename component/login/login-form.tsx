@@ -5,24 +5,27 @@ import { useRouter } from "next/navigation";
 import LoginInput from "./login-input";
 import LoginProvidersForm from "./login-providers-form";
 import SubmitButton from "./submit-button";
-// import { useUser } from "@/lib/context/authProvider";
+import { useUser } from "@/lib/context/authProvider";
 import {API_URL} from "@/lib/const/api-url";
+
 export default function LoginForm({ children }: { children: React.ReactNode }) {
   const [errorMsg, setErrorMsg] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [pending, setPending] = useState(false); // [1
-  // const { user,setUser } = useUser();
+  const { login } = useUser();
   const router = useRouter();
 
   const onEmailLogin: React.FormEventHandler = async (e) => {
-    // e.preventDefault();
-    // setPending(true);
-    // localStorage.setItem("email", email); //이메일 저장
-    // const jwtToken = await loginWithEmail(email, password);
-    // if (jwtToken) {
-    //   router.replace("/");
-    //   setPending(false);
+    e.preventDefault();
+    setPending(true);
+    localStorage.setItem("email", email); //이메일 저장
+
+    const jwtToken = await login(email, password);
+    if (jwtToken) {
+      router.replace("/");
+      setPending(false);
+    }
     //   try {
     //     const res = await fetch(API_URL.AUTH_LOGIN, {
     //       method: 'POST',
