@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import MOUN from "@/public/image/moun.png";
 import LOGO from "@/public/image/symbol.png";
 import Image from "next/image";
+import {useUser } from "@/lib/context/authProvider"
 
 import Profile from "@/component/svg/profile";
 
@@ -103,21 +104,15 @@ function Home() {
 }
 
 function Login() {
-    // const { user, authLoading, artist, artistLoading } = useUser();
-    let artistLoading = false;
-    let authLoading = false;
-    let artist = {photoURL : null};
-    let user = true;
-    // let artistLoading = true;
-
+    const { isAuthenticated, authLoading, member, memberLoading } = useUser();
 
     return (
         <>
-            {artistLoading || authLoading ? (
+            {memberLoading || authLoading ? (
                     // * 로딩 상태일때
                     <div className="bg-neutral-800 rounded-full size-9 animate-pulse"></div>
                 ) : // * 로그인 상태일때
-                user ? (
+                isAuthenticated ? (
                     <div className="text-white Center gap-4">
                         <Link href="/mypage/upload">
                             <svg
@@ -136,10 +131,10 @@ function Login() {
                             </svg>
                         </Link>
                         <Link href="/mypage">
-                            {artist?.photoURL ? (
+                            {member?.profilePrictrueUrl ? (
                                 <Image
                                     className="rounded-full aspect-square size-9"
-                                    src={artist.photoURL}
+                                    src={member.profilePrictrueUrl}
                                     width={33}
                                     height={33}
                                     alt="my-page"

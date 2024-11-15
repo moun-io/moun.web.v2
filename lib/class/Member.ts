@@ -4,6 +4,7 @@ import ArrayFilter from "../utils/array-filter";
 import { isValidUrl } from "@/lib/utils/isValid";
 
 export class Member {
+  public id : number;
   public displayName: string;
   public positions: Position[];
   public sns: string;
@@ -28,6 +29,7 @@ export class Member {
   }
   private getPlainObject() {
     return {
+      id : this.id,
       displayName: this.displayName,
       positions: this.positions,
       sns: this.sns,

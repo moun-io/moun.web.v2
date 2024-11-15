@@ -9,13 +9,16 @@ import {Member} from "@/lib/class/Member";
 
 const AuthContext = createContext
     < {
+  isAuthenticated:boolean
   authLoading: boolean,
   member: Member | null,
   memberLoading: boolean,
   login:any,
   logout:any
+
 }>
 ({
+  isAuthenticated :false,
   authLoading: true,
   member: null,
   memberLoading: true,
@@ -30,38 +33,41 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
 
-  const [authLoading, setAuthLoading] = useState(true);
-  const [memberLoading, setMemberLoading] = useState(true);
+  const [authLoading, setAuthLoading] = useState(false);
+  const [memberLoading, setMemberLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [member, setMember] = useState<Member | null>(null);
 
+
+  const setLoading= ( value :boolean)=>{
+    setAuthLoading(value);
+    setMemberLoading(value);
+  }
+
   const login = async (username:string, password:string) => {
     try{
+      setLoading(true);
       const res  = await fetch ( API_URL.AUTH_LOGIN ,{
             method: "POST",   headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({username : "jin", password:"jin"})
+            body: JSON.stringify({username : username, password:password})
           }
       );
       const loginResponse = await res.json();
-      const token:string = loginResponse.jwtToken.value;
+      const {jwtToken, member} = loginResponse;
 
-
-      if(res.ok){
-        console.log(token);
-        localStorage.setItem("jwtToken",token)// 또는 쿠키에 저장
-        return token;
+      if (res.ok){
+        localStorage.setItem("jwtToken",jwtToken.value)
+        setIsAuthenticated(true);
+        setMember(member);
+        setLoading(false);
+        return jwtToken.value;// 또는 쿠키에 저장
       }
-      // const res = await fetch ()
-      setIsAuthenticated(true);
-      setMember(member);
-
-      } catch (e){
+    } catch (e){
         alert(e);
-      }
-
     }
+  }
 
 
 
@@ -78,11 +84,10 @@ export default function AuthProvider({
 
 
 
-
+  //
   // useEffect(() => {
   //   const jwtToken = localStorage.getItem('jwtToken'); // 또는 쿠키에서 가져오기
   //   if (jwtToken) {
-  //
   //     setIsAuthenticated(true);
   //   }{
   //
@@ -92,7 +97,7 @@ export default function AuthProvider({
 
 
   return (
-    <AuthContext.Provider value={{ authLoading, member, memberLoading,login,logout }}>
+    <AuthContext.Provider value={{isAuthenticated, authLoading, member, memberLoading,login,logout }}>
       {children}
     </AuthContext.Provider>
   );
