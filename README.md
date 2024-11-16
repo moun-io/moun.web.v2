@@ -5,6 +5,7 @@ Moun Web V2 is a front-side modern web application built to provide a seamless e
 
 (https://github.com/moun-io/moun.web)
 ---
+![Uploading Screenshot 2024-11-16 at 17.18.05.png…]()
 
 ### Features
 - **Dynamic Routing**: Built with Next.js for optimized server-side rendering (SSR) and static site generation (SSG).
