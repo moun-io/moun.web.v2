@@ -1,9 +1,10 @@
 # Moun Web V2
 
 ### Project Overview
-Moun Web V2 is a front-side modern web application built to provide a seamless experience for users engaging with the Moun platform. Developed using the latest web technologies. 
 
-[version 1.0](https://github.com/moun-io/moun.web)
+Moun Web V2 is a front-side modern web application built to provide a seamless experience for users engaging with the Moun platform. Developed using the latest web technologies.  [version 1.0](https://github.com/moun-io/moun.web)
+
+
 ---
 
 <img width="1440" alt="Screenshot 2024-11-16 at 17 18 42" src="https://github.com/user-attachments/assets/8ead2f01-45c8-44f0-8f22-6442654a84b8">
