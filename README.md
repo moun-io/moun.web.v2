@@ -1,7 +1,9 @@
 # Moun Web V2
 
 ### Project Overview
-Moun Web V2 is a modern web application built to provide a seamless experience for users engaging with the Moun platform. Developed using the latest web technologies, it focuses on performance, maintainability, and scalability.
+Moun Web V2 is a front-side modern web application built to provide a seamless experience for users engaging with the Moun platform. Developed using the latest web technologies. 
+
+
 
 ---
 
