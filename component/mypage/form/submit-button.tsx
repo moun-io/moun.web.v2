@@ -4,7 +4,7 @@ import { useFormStatus } from "react-dom";
 import { useUser } from "@/lib/context/authProvider";
 export default function SubmitButton({ errorMsg }: { errorMsg: string }) {
   const { pending } = useFormStatus();
-  const { user } = useUser();
+
   return (
     <>
       {pending ? (

@@ -25,7 +25,7 @@ export default function Profile() {
           <TextInput
             placeholder="활동명 입력"
             required={true}
-            name="name"
+            name="displayName"
             defaultValue={member?.displayName}
           />
         </Box>
@@ -38,9 +38,9 @@ export default function Profile() {
         </Box>
         <Box label="SNS" description="매력을 어필할 SNS 계정을 연결해주세요">
           <TextInput
-            name="sns"
+            name="instagramUrl"
             placeholder="인스타그램 프로필 URL 입력"
-            defaultValue={member?.sns}
+            defaultValue={member?.instagramUrl}
           />
         </Box>
         <Box

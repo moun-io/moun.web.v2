@@ -7,7 +7,7 @@ export class Member {
   public id : number;
   public displayName: string;
   public positions: Position[];
-  public sns: string;
+  public instagramUrl: string;
   public description: string;
   public email: string;
   public profilePicture: File;
@@ -16,9 +16,9 @@ export class Member {
   public verified: boolean;
   public emailVerified: boolean;
   constructor(formData: FormData) {
-    this.displayName = formData.get("name") as string;
+    this.displayName = formData.get("displayName") as string;
     this.positions = ArrayFilter(Positions, formData) as Position[];
-    this.sns = formData.get("sns") as string;
+    this.instagramUrl = formData.get("instagramUrl") as string;
     this.description = formData.get("description") as string;
     this.email = formData.get("email") as string;
     this.profilePicture = formData.get("photo") as File;
@@ -34,7 +34,7 @@ export class Member {
       id : this.id,
       displayName: this.displayName,
       positions: this.positions,
-      sns: this.sns,
+      instagramSNS: this.instagramSNS,
       description: this.description,
       email: this.email,
       photoURL: this.profilePrictrueUrl,

@@ -22,8 +22,7 @@ export default function LoginForm({ children }: { children: React.ReactNode }) {
     if (jwtToken) {
       router.replace("/");
     } else {
-        setErrorMsg("아이디와 비밀번호를 다시 확인해주세요.");
-        setPending(false);
+        setErrorMsg("로그인 실패 : 아이디와 비밀번호를 다시 확인해주세요.");
     }
   };
 
