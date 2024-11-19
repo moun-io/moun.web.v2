@@ -1,5 +1,5 @@
-import SignupForm from "@/components/login/signup-form";
-import { ResetPasswordLink, LoginLink } from "@/components/login/links";
+import SignupForm from "@/component/login/signup-form";
+import { ResetPasswordLink, LoginLink } from "@/component/login/links";
 
 export default function Signup() {
   return (

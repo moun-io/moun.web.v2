@@ -5,6 +5,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import {API_URL} from "@/lib/const/api-url";
 import {JwtToken} from "@/lib/class/JwtToken";
 import {Member} from "@/lib/class/Member";
+import {useRouter} from "next/navigation";
 
 
 const AuthContext = createContext
@@ -14,7 +15,7 @@ const AuthContext = createContext
   member: Member | null,
   memberLoading: boolean,
   login:any,
-  logout:any
+  logout:any, signup:any
 
 }>
 ({
@@ -24,6 +25,7 @@ const AuthContext = createContext
   memberLoading: true,
   login : null,
   logout : null,
+  signup : null,
 });
 
 
@@ -37,6 +39,7 @@ export default function AuthProvider({
   const [memberLoading, setMemberLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [member, setMember] = useState<Member | null>(null);
+  const router = useRouter();
 
 
   const setLoading= ( value :boolean)=>{
@@ -74,6 +77,23 @@ export default function AuthProvider({
     }
   }
 
+  const signup = async (username:string, password:string) => {
+    const res  = await fetch ( API_URL.MEMBERS_CREATE ,{
+          method: "POST",   headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({username : username, password:password})
+        }
+    );
+    if (res.ok){
+      alert("축하합니다. 만들어주신 계정으로 다시 로그인해주세요.");
+      const SignupResponse = await res.json();
+      router.replace("/login");
+    } else  {
+      alert("이미 사용중인 계정입니다.");
+    }
+
+  }
 
 
 
@@ -97,7 +117,7 @@ export default function AuthProvider({
 
 
   return (
-    <AuthContext.Provider value={{isAuthenticated, authLoading, member, memberLoading,login,logout }}>
+    <AuthContext.Provider value={{isAuthenticated, signup ,authLoading, member, memberLoading,login,logout }}>
       {children}
     </AuthContext.Provider>
   );
