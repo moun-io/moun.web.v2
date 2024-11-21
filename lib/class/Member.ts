@@ -13,10 +13,10 @@ export class Member {
   public profilePictureUrl: string;
   public uid: string;
   public verified: boolean = false; //기본값설정.
-  public emailVerified: boolean = false; //기본값설정ㅇ
+  public emailVerified: boolean = false; //기본값설정..
 
   constructor(formData: FormData) {
-    this.id = -1; // 기본값설정ㅇ
+    this.id = -1; // 기본값설정...
     this.displayName = formData.get("name") as string;
     this.positions = ArrayFilter(Positions, formData) as Position[];
     this.sns = Array.from(formData.getAll("sns")) as string[]; // 링크배열추가함
