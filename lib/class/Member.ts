@@ -1,46 +1,69 @@
-import { Position } from "../const/types";
+import { Position, isValidUrl, isValidDate, isValidTime, Artist, ArtistForm } from "../const/types"; // isValidDate, isValidTime, Artist, ArtistForm 추가함
 import { Positions } from "../const/const";
 import ArrayFilter from "../const/array-filter";
-import { isValidUrl } from "@/lib/const/isValid";
 
 export class Member {
-  public id : number;
+  public id: number; 
   public displayName: string;
   public positions: Position[];
-  public sns: string;
+  public sns: string[];
   public description: string;
   public email: string;
   public profilePicture: File;
-  public profilePrictrueUrl: string;
+  public profilePictureUrl: string;
   public uid: string;
-  public verified: boolean;
-  public emailVerified: boolean;
+  public verified: boolean = false; //기본값설정
+  public emailVerified: boolean = false; //기본값설정ㅇ
+
   constructor(formData: FormData) {
+    this.id = -1; // 기본값설정ㅇ
     this.displayName = formData.get("name") as string;
     this.positions = ArrayFilter(Positions, formData) as Position[];
-    this.sns = formData.get("sns") as string;
+    this.sns = Array.from(formData.getAll("sns")) as string[]; // 링크배열추가함
     this.description = formData.get("description") as string;
     this.email = formData.get("email") as string;
     this.profilePicture = formData.get("photo") as File;
-    this.profilePrictrueUrl = "";
+    this.profilePictureUrl = "";
     this.uid = formData.get("userId") as string;
   }
+
   private isValidForm() {
     if (this.displayName.length < 2) return "2자 이상의 활동명을 입력해주세요";
     if (this.positions.length === 0) return "포지션을 선택해주세요";
+    if (!isValidUrl(this.sns)) return "유효한 SNS URL을 입력해주세요";
+    if (!this.email.includes("@")) return "유효한 이메일을 입력해주세요"; // 간단한 이메일 검사
   }
+
   private getPlainObject() {
     return {
-      id : this.id,
+      id: this.id,
       displayName: this.displayName,
       positions: this.positions,
       sns: this.sns,
       description: this.description,
       email: this.email,
-      photoURL: this.profilePrictrueUrl,
+      photoURL: this.profilePictureUrl,
       uid: this.uid,
     };
   }
+
+  public updateMember(updates: Partial<Member>) {
+    Object.assign(this, updates);
+  }
+
+  public artist?: Artist; // 아티스트 정보를 포함
+
+  public setArtist(artistData: ArtistForm) {
+    this.artist = new Artist(
+      artistData.displayName,
+      artistData.positions as Position[],
+      artistData.sns,
+      artistData.description,
+      this.email, // Member의 이메일 사용
+    );
+  }
+}
+
   // private async uploadImage() {
   //   //*파일이 있을 때만 업로드 , 없어도됨.
   //   if (this.photo.size > 0) {
@@ -91,4 +114,4 @@ export class Member {
   //   errorMsg = await this.updateDoc();
   //   if (errorMsg) return errorMsg;
   // }
-}
+
