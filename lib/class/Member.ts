@@ -12,7 +12,7 @@ export class Member {
   public profilePicture: File;
   public profilePictureUrl: string;
   public uid: string;
-  public verified: boolean = false; //기본값설정
+  public verified: boolean = false; //기본값설정.
   public emailVerified: boolean = false; //기본값설정ㅇ
 
   constructor(formData: FormData) {
